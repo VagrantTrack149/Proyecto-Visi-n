@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <link rel="stylesheet" href="Styles/juego.css">
+    <script src="JS/juego.js"></script>
+</head>
+<body>
+    <div id="Laberinto">
+        <script>Cargar_lab();</script>
+    </div>
+    <div id="Tablero" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <div id="Bloques">
+        <img id="Der" src="images/Der.jpg" alt="Derecha" draggable="true" ondragstart="drag(event)">
+        <img id="Izq" src="images/Izq.jpg" alt="Izquierda" draggable="true" ondragstart="drag(event)">
+        <img id="Up" src="images/Up.jpg" alt="Arriba" draggable="true" ondragstart="drag(event)">
+        <img id="Down" src="images/Down.jpg" alt="Abajo" draggable="true" ondragstart="drag(event)">
+    </div>
+    <button onclick="resolver();">Correr código</button>
+    <button onclick="limpiar();">Limpiar bloques</button>
+</body>
+</html>

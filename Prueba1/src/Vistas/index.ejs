@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+</head>
+<body>
+    <style>
+        table,th,td{
+        border: 1px solid;
+        }
+        th{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <script>
+        const tiempoActualizacion = 500;
+let intervalo;
+let coloresMap = {}; 
+let colorIndex = 1; 
+
+function recargarDatos() {
+  fetch('/datos')
+    .then(response => response.text())
+    .then(data => {
+      const colores = data.split('\n');
+      coloresMap = {}; 
+      colorIndex = 1;
+
+      colores.forEach(color => {
+        coloresMap[color] = colorIndex++;
+      });
+
+      const tabla = document.querySelector('table');
+      const celdas = tabla.querySelectorAll('th');
+      celdas.forEach((celda, index) => {
+        const color = colores[index];
+        celda.style.backgroundColor = color;
+      });
+
+      document.getElementById("Datos").innerText = data;
+    })
+    .catch(error => {
+      document.getElementById("Datos").innerText = "Error al obtener los datos";
+    });
+}
+    
+        window.onload = () => {
+          intervalo = setInterval(recargarDatos, tiempoActualizacion);
+        };
+    
+        function detenerActualizacion() {
+          clearInterval(intervalo);
+        }
+      </script>
+    <h1>Bienvenido a mi aplicación Node.js</h1>
+    <p>Para ver datos desde un archivo, visita <a href="/datos">/datos</a>.</p>
+    <div id="Datos" oncharge="recargar_datos()">
+        Datos
+    </div>
+    <button onclick="detenerActualizacion()">Detener actualizaciónes</button>
+    <button onclick="window.onload()">Reestablecer actualizaciones</button>
+    <table>
+        <tr>
+            <th id="1"></th>
+            <th id="2"></th>
+            <th id="3"></th>
+            <th id="4"></th>
+        </tr>
+    </table>
+</body>
+</html>
