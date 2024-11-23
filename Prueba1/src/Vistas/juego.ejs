@@ -3,23 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Inicio</title>
+    <title>Juego laberinto</title>
     <link rel="stylesheet" href="Styles/juego.css">
     <script src="JS/juego.js"></script>
+    <link rel="icon" href="images/LogoChistoso tiny.png" type="image/x-icon">
 </head>
 <body>
-    <div id="Laberinto">
-        <script>Cargar_lab();</script>
+    <div id="Titulo">
+        <img src="images/LogoChistoso.png" alt="logo" id="logotipo">
     </div>
-    <div id="Tablero" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
-    <div id="Bloques">
-        <img id="Der" src="images/Der.jpg" alt="Derecha" draggable="true" ondragstart="drag(event)">
-        <img id="Izq" src="images/Izq.jpg" alt="Izquierda" draggable="true" ondragstart="drag(event)">
-        <img id="Up" src="images/Up.jpg" alt="Arriba" draggable="true" ondragstart="drag(event)">
-        <img id="Down" src="images/Down.jpg" alt="Abajo" draggable="true" ondragstart="drag(event)">
+    <div id="J">
+        <div id="Laberinto">
+            <script>Cargar_lab_primera_vez();</script>
+        </div>
+        <div id="Controles">
+            <div id="Tablero" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+            <div id="Bloques">
+                <img id="Der" src="images/Der_1.jpg" alt="Derecha" draggable="true" ondragstart="drag(event)">
+                <img id="Izq" src="images/Izq_1.jpg" alt="Izquierda" draggable="true" ondragstart="drag(event)">
+                <img id="Up" src="images/Up_1.jpg" alt="Arriba" draggable="true" ondragstart="drag(event)">
+                <img id="Down" src="images/Down_1.jpg" alt="Abajo" draggable="true" ondragstart="drag(event)">
+            </div>
+            
+        </div>
     </div>
     <button onclick="resolver();">Correr código</button>
     <button onclick="limpiar();">Limpiar bloques</button>
+    <button onclick="leer();">Leer Datos de cámara</button>
+    <button onclick="recargar_lab();">Resetear laberinto</button>
 </body>
 </html>

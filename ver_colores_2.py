@@ -8,6 +8,7 @@ Created on Wed Oct 16 18:58:21 2024
 
 import cv2 as cv
 import numpy as np
+import json
 
 cap = cv.VideoCapture(0)
 def encontrar_primera_aparicion(mask, color_name):
@@ -43,9 +44,9 @@ def ordenar(mask_rojo,mask_verde,mask_azul,mask_amarillo):
            return nombres_ordenados
 
 def archivo(orden):
-    orden_str = '\n'.join(orden)
-    with open("Prueba1\src\datos.txt", "w") as file:
-       file.write(orden_str)
+    datos_json = {"orden": orden}
+    with open("Prueba1/src/datos.json", "w") as file: 
+        json.dump(datos_json, file, indent=4)  
     
 while True:
     ret, frame = cap.read()

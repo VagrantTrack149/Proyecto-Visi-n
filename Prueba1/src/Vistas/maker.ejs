@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Styles/maker.css">
+    <script src="JS/maker.js"></script>
+</head>
+<body>
+    <div id="elements">
+        <input type="number" name="Column" id="C" value="2" min="1" onchange="tabla();">
+        <input type="number" name="row" id="R" value="2" min="1" onchange="tabla();">
+        <input type="text" name="name" id="N" placeholder="Name of laberinto">
+    </div>
+    <br>
+    <div id="tabla">
+        <table id="Area_T" onload="tabla();">
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <button id="Save" onclick="save();">Guardar laberinto</button>
+</body>
+</html>

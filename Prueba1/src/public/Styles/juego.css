@@ -1,52 +1,82 @@
+#Laberinto{
+    flex-basis: 33.33%;
+    padding: 30px;
+}
 table {
     border-collapse: collapse;
     table-layout: fixed; 
-    width: 100%; 
-    max-width: 500px; 
-    position: relative;
+    width: 100%;
+    height: 100%; 
     }
-
-    th, td {
+th, td {
     border: 2px solid black; 
     width: 50px; 
     height: 50px; 
     justify-content: center;
-    }
-    #Tablero{
-        border: 10px;
-        width: 100%;
-        height: 100%;
-        max-width: 600px;
-        min-width: 500px;
-        max-height: 400px;
-        min-height: 300px;
-        background-color: rgb(233, 228, 228);
-        position: relative;
-        border: 2px dashed #000;
-        padding: 10px;
-        display: flex;
-        flex-wrap: wrap;
-    }
-    #Bloques{
-        position: relative;
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    #Bloques img, #Tablero img {
-        width: 50px;
-        height: 50px;
-        cursor: grab;
-    }
-    #Der,#Izq,#Up,#Down{
-      width: 100%;
-      max-width: 60px;
-      max-height: 60px;
-    }
-    .dot {
-        height: 25px;
-        width: 25px;
-        background-color: #ffef15;
-        border-radius: 50%;
-        display: inline-block;
-    }
+}
+#Tablero{
+    border: 10px;
+    width: 100%;
+    height: 100%;
+    max-width: 90%;
+    min-width: 500px;
+    max-height: 400px;
+    min-height: 300px;
+    background-color: rgb(233, 228, 228);
+    position: relative;
+    border: 2px dashed #000;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#Bloques{
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+#Bloques img, #Tablero img {
+    width: 50px;
+    height: 50px;
+    cursor: grab;
+}
+#Der,#Izq,#Up,#Down{
+    width: 100%;
+    max-width: 60px;
+    max-height: 60px;
+}
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #fefe6b;
+    border-radius: 50%;
+    display: inline-block;
+}
+#Controles{
+    flex-basis: 66.66%;
+    padding: 20px;
+}
+#J{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+#Tablero img.Bien {
+    border: #63ff63 5px solid;
+}
+
+
+#Tablero img.Mal{
+    border: #fd4646 5px solid;
+}
+
+#Tablero img.Perfecto{
+    border: #ffe95b 5px solid;
+}
+
+#logotipo{
+    max-width: 200px;
+    max-height: 100px;
+}
