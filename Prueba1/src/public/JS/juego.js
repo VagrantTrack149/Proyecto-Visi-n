@@ -27,6 +27,7 @@ function GetLab() {
         });
 }
 
+
 function recargar_lab() {
     if (Laberinto == labs) {
         console.log("error");
@@ -64,7 +65,7 @@ function Cargar_lab_primera_vez(){
     });
     tabla += "</table>";
     document.getElementById("Laberinto").innerHTML = tabla;
-    }, 100); 
+    }, 200); 
 }
 function Cargar_lab(){
     tabla = "<table border='1' style='width:100%; height: 100%;'>";
@@ -180,23 +181,23 @@ function moverDot(direction) {
         console.log("Movimiento fuera de límites");
         return;
     }
+    console.log("x:"+newX+"y:"+newY);
 
-    const cellValue = Laberinto[newX][newY];
+    var cellValue = Laberinto[newX][newY];
 
     if (cellValue == 0) {
         console.log("Error: casilla negra");
         alert("ERROR"); 
         control=1;
+        Laberinto=labs.slice(0);
         return;
     }
     if (cellValue == 3) {
         console.log("Exitoso: casilla roja");
         alert("RESUELTO CORRECTAMENTE");
         control=2;
+        Laberinto=labs.slice(0);
         return;
-        /*setTimeout(() => {
-            
-        }, 300);*/
          
     }
 
@@ -221,16 +222,16 @@ function leer(){
         data.orden.forEach(color => {
             //console.log(color);
             switch (color) {
-                case "red":
+                case "Red":
                     Datos+='<img id="Der" src="images/Der_1.jpg" alt="Derecha">'
                     break;
-                case "blue":
+                case "Blue":
                     Datos+='<img id="Izq" src="images/Izq_1.jpg" alt="Izquierda">'
                     break;
-                case "green":
+                case "Green":
                     Datos+='<img id="Up" src="images/Up_1.jpg" alt="Arriba">'
                     break;
-                case "yellow":
+                case "Yellow":
                     Datos+='<img id="Down" src="images/Down_1.jpg" alt="Abajo">'
                     break;
                 default:
