@@ -1,5 +1,42 @@
-let Laberinto;
-let labs;
+let Laberintos = []; 
+let LaberintoActual = {}; 
+
+function inicializarSelector() {
+    const selector = document.getElementById("laberintoSelect");
+    Laberintos.forEach((lab, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = `Laberinto ${lab.nombre}`;
+        selector.appendChild(option);
+    });
+}
+
+function cargarLaberintos() {
+    fetch('/Laberinto')
+        .then(response => response.json())
+        .then(data => {
+            Laberintos = data; 
+            inicializarSelector();
+            seleccionarLaberinto(0); 
+        })
+        .catch(error => console.error("Error al cargar los laberintos:", error));
+}
+
+function cambiarLaberinto() {
+    const index = document.getElementById("laberintoSelect").value;
+    seleccionarLaberinto(index);
+}
+function seleccionarLaberinto(index) {
+    LaberintoActual = Laberintos[index];
+    Laberinto = JSON.parse(JSON.stringify(LaberintoActual.matriz)); 
+    labs = JSON.parse(JSON.stringify(LaberintoActual.matriz)); 
+    posX = LaberintoActual.matriz.findIndex(row => row.includes(2));
+    posY = LaberintoActual.matriz[posX].indexOf(2);
+    Cargar_lab();
+}
+
+cargarLaberintos();
+/*
 function GetLab() {
     fetch('/Laberinto') 
         .then(response => {
@@ -26,22 +63,16 @@ function GetLab() {
             console.error("Error en la solicitud:", error);
         });
 }
-
+*/
 
 function recargar_lab() {
-    if (Laberinto == labs) {
-        console.log("error");
-    }else{
-        console.log(Laberinto);
-        console.log(labs);
-    }
-    Cargar_lab_2(labs);
+    window.location.href = '/';
 }
 let posX = 1;
 let posY = 1; 
 let tabla = "<table border='1' style='width:100%; height: 100%;'>";
 
-function Cargar_lab_primera_vez(){
+/*function Cargar_lab_primera_vez(){
     GetLab();
     setTimeout(() => {
     tabla = "<table border='1' style='width:100%; height: 100%;'>";
@@ -65,8 +96,8 @@ function Cargar_lab_primera_vez(){
     });
     tabla += "</table>";
     document.getElementById("Laberinto").innerHTML = tabla;
-    }, 200); 
-}
+    }, 300); 
+}*/
 function Cargar_lab(){
     tabla = "<table border='1' style='width:100%; height: 100%;'>";
     Laberinto.forEach(fila => {
@@ -167,45 +198,35 @@ function resolver() {
 }
 let control = 0;
 function moverDot(direction) {
-    let newX = posX;
-    let newY = posY;
+    let newX = posX, newY = posY;
 
-    switch(direction) {
+    switch (direction) {
         case "Der": newY += 1; break;
         case "Izq": newY -= 1; break;
-        case "Up":  newX -= 1; break;
+        case "Up": newX -= 1; break;
         case "Down": newX += 1; break;
     }
 
-    if (newX < 0 || newX >= Laberinto.length || newY < 0 || newY >= Laberinto[0].length) {
-        console.log("Movimiento fuera de límites");
+    if (newX < 0 || newX >= Laberinto.length || newY < 0 || newY >= Laberinto[0].length || Laberinto[newX][newY] === 0) {
+        alert("Error: Movimiento inválido. El laberinto se reiniciará.");
+        seleccionarLaberinto(document.getElementById("laberintoSelect").value); 
         return;
     }
-    console.log("x:"+newX+"y:"+newY);
 
-    var cellValue = Laberinto[newX][newY];
-
-    if (cellValue == 0) {
-        console.log("Error: casilla negra");
-        alert("ERROR"); 
-        control=1;
-        Laberinto=labs.slice(0);
+    if (Laberinto[newX][newY] === 3) {
+        alert("¡Éxito! Has resuelto el laberinto. Reiniciando...");
+        seleccionarLaberinto(document.getElementById("laberintoSelect").value); 
         return;
-    }
-    if (cellValue == 3) {
-        console.log("Exitoso: casilla roja");
-        alert("RESUELTO CORRECTAMENTE");
-        control=2;
-        Laberinto=labs.slice(0);
-        return;
-         
     }
 
     Laberinto[posX][posY] = 1; 
     Laberinto[newX][newY] = 2; 
     posX = newX;
     posY = newY;
+    Cargar_lab();
 }
+
+
 
 function leer(){
     Tablero= document.getElementById("Tablero");

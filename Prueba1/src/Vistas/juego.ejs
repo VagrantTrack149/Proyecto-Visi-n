@@ -12,9 +12,15 @@
     <div id="Titulo">
         <img src="images/LogoChistoso.png" alt="logo" id="logotipo">
     </div>
+    <div id="LaberintoSelector">
+        <label for="laberintoSelect">Selecciona un laberinto:</label>
+        <select id="laberintoSelect" onchange="cambiarLaberinto()">
+            
+        </select>
+    </div>
     <div id="J">
         <div id="Laberinto">
-            <script>Cargar_lab_primera_vez();</script>
+            <!--<script>Cargar_lab_primera_vez();</script>-->
         </div>
         <div id="Controles">
             <div id="Tablero" ondrop="drop(event)" ondragover="allowDrop(event)">
