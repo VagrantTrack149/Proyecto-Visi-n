@@ -19,7 +19,7 @@ function data(X, Y) {
                     Laberinto[i][j] = 2;
                 }
             } else {
-                console.warn(`Celda ${i}${j} no encontrada.`);
+                console.warn('Celda'+ i+j +'no encontrada.');
             }
         }
     }
@@ -28,72 +28,101 @@ function data(X, Y) {
 }
 
 function save() {
+    const rows = parseInt(document.getElementById("R").value);
+    const cols = parseInt(document.getElementById("C").value);
+    const matriz = data(rows, cols); 
+    const nombre = document.getElementById("N").value;
 
+    if (!nombre.trim()) {
+        alert("El nombre del laberinto es obligatorio.");
+        return;
+    }
+
+    const laberinto = {
+        nombre,
+        dimensiones: [rows, cols],
+        matriz
+    };
+
+    fetch('/Guardar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(laberinto),
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
+        }
+        return response.text();
+    })
+    .then(message => {
+        alert(message);
+    })
+    .catch(err => {
+        alert("Error al guardar el laberinto: " + err.message);
+    });
 }
 
 
-
 function tabla() {
-    let Cont_table = document.getElementById("Area_T");
-    let row = document.getElementById("R").value;
-    let column = document.getElementById("C").value;
+    const Cont_table = document.getElementById("Area_T");
+    const row = document.getElementById("R").value;
+    const column = document.getElementById("C").value;
+
     let Contenido = "";
     for (let i = 0; i < column; i++) {
         Contenido += "<tr>";
         for (let j = 0; j < row; j++) {
-            Contenido += `<td id="${i}${j}" onclick="pared();"></td>`;
+            Contenido += `<td id="${i}${j}"></td>`;
         }
         Contenido += "</tr>";
     }
 
     Cont_table.innerHTML = Contenido;
+    pared(); 
 }
 
-
-function pared(){
-    let row = document.getElementById("R").value;
-    let column = document.getElementById("C").value;
-    Cont_table=document.getElementById("Area_T");
+function pared() {
+    const Cont_table = document.getElementById("Area_T");
     const celdas = Cont_table.querySelectorAll("td");
 
     celdas.forEach((celda) => {
         celda.addEventListener("click", () => {
-           //const currentColor = celda.style.backgroundColor;
-           const currentColor = window.getComputedStyle(celda).backgroundColor;
-            //console.log(currentColor);
-            /*if (currentColor=="" || currentColor=="white") {
-                celda.style.backgroundColor="black";
-            }
-            if (currentColor =="black") {
-                celda.style.backgroundColor="red";
-            }
-            if (currentColor== "red") {
-                celda.style.backgroundColor="green";
-            }
-            if (currentColor=="green") {
-                celda.style.backgroundColor="white";
-            }*/
+            const currentColor = window.getComputedStyle(celda).backgroundColor;
+
+            const existeRoja = Array.from(celdas).some(c => window.getComputedStyle(c).backgroundColor === "rgb(255, 0, 0)");
+            const existeVerde = Array.from(celdas).some(c => window.getComputedStyle(c).backgroundColor === "rgb(0, 128, 0)");
 
             switch (currentColor) {
-                case "rgb(255, 255, 255)": // blanco
-                case "":
+                case "rgb(255, 255, 255)": // Blanco
+                case "": // Sin color
                     celda.style.backgroundColor = "black";
                     break;
-                case "rgb(0, 0, 0)": // negro
-                    celda.style.backgroundColor = "red";
+                case "rgb(0, 0, 0)": // Negro
+                    if (!existeRoja) {
+                        celda.style.backgroundColor = "red";
+                    } else {
+                        celda.style.backgroundColor = "green";
+                    }
                     break;
-                case "rgb(255, 0, 0)": // rojo
-                    celda.style.backgroundColor = "green";
-                    break;
-                case "rgb(0, 128, 0)": // verde
+                case "rgb(255, 0, 0)": // Rojo
                     celda.style.backgroundColor = "white";
                     break;
+                case "rgb(0, 128, 0)": // Verde
+                    celda.style.backgroundColor = "white";
+                    break;
+                case "rgb(255, 255, 255)": // Blanco
                 default:
-                    celda.style.backgroundColor = "white";
+                    if (!existeVerde) {
+                        celda.style.backgroundColor = "green";
+                    } else {
+                        alert("Ya existe una casilla verde. No puedes colocar otra.");
+                    }
                     break;
             }
-               
         });
     });
-    data(column, row);
 }
+

@@ -20,3 +20,7 @@ th, td {
     height: 50px; 
     justify-content: center;
 }   
+#logotipo{
+    max-width: 200px;
+    max-height: 100px;
+}

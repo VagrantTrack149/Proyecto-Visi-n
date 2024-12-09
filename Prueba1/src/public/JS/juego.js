@@ -184,11 +184,11 @@ function resolver() {
                     move.classList.add("Bien"); 
                 }
                 if (control==1) {
-                    Cargar_lab_2(labs);
+                    Cargar_lab();
                     move.classList.add("Mal");  
                 }
                 if (control==2) {
-                    Cargar_lab_2(labs);    
+                    Cargar_lab();     
                     move.classList.add("Perfecto");  
                 }
             }, delay);
@@ -209,12 +209,14 @@ function moverDot(direction) {
 
     if (newX < 0 || newX >= Laberinto.length || newY < 0 || newY >= Laberinto[0].length || Laberinto[newX][newY] === 0) {
         alert("Error: Movimiento inválido. El laberinto se reiniciará.");
-        seleccionarLaberinto(document.getElementById("laberintoSelect").value); 
+        control=1;
+        seleccionarLaberinto(document.getElementById("laberintoSelect").value);
         return;
     }
 
     if (Laberinto[newX][newY] === 3) {
         alert("¡Éxito! Has resuelto el laberinto. Reiniciando...");
+        control=2;
         seleccionarLaberinto(document.getElementById("laberintoSelect").value); 
         return;
     }
