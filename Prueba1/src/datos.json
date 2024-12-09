@@ -1,10 +1,10 @@
 {
     "orden": [
         "Red",
+        "Red",
         "Yellow",
-        "Yellow",
-        "Blue",
-        "Yellow",
-        "Blue"
+        "Red",
+        "Green",
+        "Red"
     ]
 }
